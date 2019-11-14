@@ -54,7 +54,7 @@ void LinkedList<T>::AddLast(T value)
 
 	End->Next = std::make_unique<Node<T>>(value);
 	End->Next.get()->Previous = End;
-	End = End.get()->Next.get();
+	End = End->Next.get();
 
 	Count++;
 }
@@ -62,14 +62,46 @@ void LinkedList<T>::AddLast(T value)
 template<typename T>
 void LinkedList<T>::Remove(T value)
 {
+	Node<T>* currentNode = Start.get();
+	while (currentNode != nullptr)
+	{
+		if (currentNode->Value == value)
+		{
+			if (currentNode == Start.get())
+			{
+				RemoveFirst();
+				return;
+			}
+			else if (currentNode == End)
+			{
+				RemoveLast();
+				return;
+			}
+			else
+			{
+				currentNode->Next.get()->Previous = currentNode->Previous;
+				currentNode->Previous->Next = std::move(currentNode->Next);
+				Count--;
+				return;
+			}
+		}
+
+		currentNode = currentNode->Next.get();
+	}
 }
 
 template<typename T>
 void LinkedList<T>::RemoveFirst()
 {
+	Start = std::move(Start.get()->Next);
+	Start.get()->Previous = nullptr;
+	Count--;
 }
 
 template<typename T>
 void LinkedList<T>::RemoveLast()
 {
+	End = End->Previous;
+	End->Next = nullptr;
+	Count--;
 }
