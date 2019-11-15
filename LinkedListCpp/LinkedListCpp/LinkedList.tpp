@@ -14,6 +14,8 @@ LinkedList<T>::~LinkedList()
 {
 }
 
+
+
 template<typename T>
 void LinkedList<T>::AddFirst(T value)
 {
@@ -55,6 +57,41 @@ void LinkedList<T>::AddLast(T value)
 	End->Next = std::make_unique<Node<T>>(value);
 	End->Next.get()->Previous = End;
 	End = End->Next.get();
+
+	Count++;
+}
+
+template<typename T>
+void LinkedList<T>::AddBefore(Node<T>* node, T value)
+{
+	if (node == Start.get())
+	{
+		AddFirst(value);
+		return;
+	}
+
+	std::unique_ptr<Node<T>> newNode = std::make_unique<Node<T>>(value);
+	newNode.get()->Previous = node->Previous;
+	newNode.get()->Next = std::move(node->Previous->Next);
+	node->Previous->Next = std::move(newNode);
+	node->Previous = node->Previous->Next.get();
+
+	Count++;
+}
+template<typename T>
+void LinkedList<T>::AddAfter(Node<T>* node, T value)
+{
+	if (node == End)
+	{
+		AddLast(value);
+		return;
+	}
+
+	std::unique_ptr<Node<T>> newNode = std::make_unique<Node<T>>(value);
+	node->Next.get()->Previous = newNode.get();
+	newNode.get()->Next = std::move(node->Next);
+	newNode.get()->Previous = node;
+	node->Next = std::move(newNode);
 
 	Count++;
 }

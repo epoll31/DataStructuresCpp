@@ -15,6 +15,8 @@ public:
 
 	void AddFirst(T value);
 	void AddLast(T value);
+	void AddBefore(Node<T>* node, T value);
+	void AddAfter(Node<T>* node, T value);
 	void Remove(T value);
 	void RemoveFirst();
 	void RemoveLast();
