@@ -7,10 +7,9 @@ class Node
 public:
 	T Value;
 
-	std::unique_ptr<Node<T>> Next;
-	Node<T>* Previous;
+	std::shared_ptr<Node<T>> Next;
+	std::weak_ptr<Node<T>> Previous;
 
-	//Node();
 	Node(T value);
 	~Node();
 };

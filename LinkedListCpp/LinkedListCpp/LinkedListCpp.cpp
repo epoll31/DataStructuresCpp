@@ -31,7 +31,6 @@ int main()
 	}
 	std::cout << std::endl;
 	
-
 	linkedList.Remove(1);
 	linkedList.Remove(5);
 	linkedList.Remove(3);
