@@ -35,6 +35,10 @@ int main()
 	linkedList.Remove(1);
 	linkedList.Remove(5);
 	linkedList.Remove(3);
-	;
+	
+	std::cout << linkedList.Contains(1) << std::endl;
+	std::cout << linkedList.Contains(2) << std::endl;
+	std::cout << linkedList.Find(1) << std::endl;
+	std::cout << linkedList.Find(2) << std::endl;
 
 }

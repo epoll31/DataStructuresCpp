@@ -20,6 +20,9 @@ public:
 	void Remove(T value);
 	void RemoveFirst();
 	void RemoveLast();
+
+	Node<T>* Find(T value);
+	bool Contains(T value);
 };
 
 #include "LinkedList.tpp"

@@ -142,3 +142,37 @@ void LinkedList<T>::RemoveLast()
 	End->Next = nullptr;
 	Count--;
 }
+
+template<typename T>
+Node<T>* LinkedList<T>::Find(T value)
+{
+	Node<T>* currentNode = Start.get();
+
+	while (currentNode != nullptr)
+	{
+		if (currentNode->Value == value)
+		{
+			return currentNode;
+		}
+		currentNode = currentNode->Next.get();
+	}
+
+	return nullptr;
+}
+
+template <typename T>
+bool LinkedList<T>::Contains(T value)
+{
+	Node<T>* currentNode = Start.get();
+
+	while (currentNode != nullptr)
+	{
+		if (currentNode->Value == value)
+		{
+			return true;
+		}
+		currentNode = currentNode->Next.get();
+	}
+
+	return false;
+}
