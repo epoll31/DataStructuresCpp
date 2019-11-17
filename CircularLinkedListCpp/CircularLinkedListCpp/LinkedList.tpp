@@ -76,19 +76,38 @@ void LinkedList<T>::AddAfter(Node<T>* node, T value)
 template<typename T>
 void LinkedList<T>::Remove(T value)
 {
-
+	Remove(Find(value));
 }
+
+template<typename T>
+void LinkedList<T>::Remove(Node<T>* nodeToDelete)
+{
+	if (Count == 1)
+	{
+		Start == nullptr;
+	}
+
+	nodeToDelete->Next.get()->Previous = nodeToDelete->Previous;
+	nodeToDelete->Previous.lock().get()->Next = nodeToDelete->Next;
+
+	if (nodeToDelete == Start.get())
+	{
+		Start = nodeToDelete->Next;
+	}
+	Count--;
+}
+
 
 template<typename T>
 void LinkedList<T>::RemoveFirst()
 {
-
+	Remove(Start.get());
 }
 
 template<typename T>
 void LinkedList<T>::RemoveLast()
 {
-
+	Remove(Start.get()->Previous.lock().get());
 }
 
 template<typename T>

@@ -22,6 +22,9 @@ public:
 
 	Node<T>* Find(T value);
 	bool Contains(T value);
+
+private:
+	void Remove(Node<T>* nodeToDelete);
 };
 
 #include "LinkedList.tpp"

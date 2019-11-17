@@ -22,4 +22,18 @@ int main()
 
 	std::cout << std::endl;
 
+	ll.RemoveFirst();
+	ll.RemoveLast();
+	ll.Remove(3);
+	ll.Remove(4);
+
+	currentNode = ll.Start.get();
+
+	do
+	{
+		std::cout << currentNode->Value << " ";
+		currentNode = currentNode->Next.get();
+	} while (currentNode != ll.Start.get());
+
+	std::cout << std::endl;
 }
