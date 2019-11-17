@@ -16,6 +16,8 @@ public:
 	void Remove(T value);
 	Node<T>* Find(T value);
 	bool Contains(T value);
+private:
+	void Remove(Node<T>* nodeToRemove);
 };
 
 #include "BinarySearchTree.tpp"

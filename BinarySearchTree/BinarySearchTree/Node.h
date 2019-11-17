@@ -13,6 +13,8 @@ public:
 
 	Node(T value);
 	~Node();
+
+	bool IsLeftChild();
 };
 
 #include "Node.tpp"
