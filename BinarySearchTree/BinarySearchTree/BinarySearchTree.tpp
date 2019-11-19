@@ -196,7 +196,7 @@ bool BinarySearchTree<T>::Contains(T value)
 }
 
 template <typename T>
-std::vector<Node<T>*> BinarySearchTree<T>::DepthFirstSearchPreOrder()
+std::vector<Node<T>*> BinarySearchTree<T>::DepthFirstTraversalPreOrder()
 {
 	std::stack<Node<T>*> stack;
 	std::vector<Node<T>*> returnList;
@@ -224,7 +224,7 @@ std::vector<Node<T>*> BinarySearchTree<T>::DepthFirstSearchPreOrder()
 }
 
 template <typename T>
-std::vector<Node<T>*> BinarySearchTree<T>::DepthFirstSearchInOrder()
+std::vector<Node<T>*> BinarySearchTree<T>::DepthFirstTraversalInOrder()
 {
 	auto Contains = [](std::vector<Node<T>*> & list, Node<T> * value)-> bool
 	{
@@ -273,7 +273,7 @@ std::vector<Node<T>*> BinarySearchTree<T>::DepthFirstSearchInOrder()
 }
 
 template <typename T>
-std::vector<Node<T>*> BinarySearchTree<T>::DepthFirstSearchPostOrder()
+std::vector<Node<T>*> BinarySearchTree<T>::DepthFirstTraversalPostOrder()
 {
 	std::stack<Node<T>*> stack;
 	std::vector<Node<T>*> inputList;
@@ -312,7 +312,7 @@ std::vector<Node<T>*> BinarySearchTree<T>::DepthFirstSearchPostOrder()
 }
 
 template <typename T>
-std::vector<Node<T>*> BinarySearchTree<T>::BreadthFirstSearch()
+std::vector<Node<T>*> BinarySearchTree<T>::BreadthFirstTraversal()
 {
 	std::queue<Node<T>*> queue;
 	std::vector<Node<T>*> returnList;

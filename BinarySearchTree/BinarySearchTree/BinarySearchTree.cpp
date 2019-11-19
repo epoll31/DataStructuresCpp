@@ -30,7 +30,7 @@ int main()
 	tree.Add(66);
 	tree.Add(90);
 
-	std::vector<Node<int>*> preorder = tree.DepthFirstSearchPreOrder();
+	std::vector<Node<int>*> preorder = tree.DepthFirstTraversalPreOrder();
 	
 	for (auto i = preorder.begin(); i < preorder.end(); i++)
 	{
@@ -38,7 +38,7 @@ int main()
 	}
 	std::cout << std::endl;
 
-	std::vector<Node<int>*> inorder = tree.DepthFirstSearchInOrder();
+	std::vector<Node<int>*> inorder = tree.DepthFirstTraversalInOrder();
 
 	for (auto i = inorder.begin(); i < inorder.end(); i++)
 	{
@@ -46,7 +46,7 @@ int main()
 	}
 	std::cout << std::endl;
 
-	std::vector<Node<int>*> postorder = tree.DepthFirstSearchPostOrder();
+	std::vector<Node<int>*> postorder = tree.DepthFirstTraversalPostOrder();
 
 	for (auto i = postorder.begin(); i < postorder.end(); i++)
 	{
@@ -54,7 +54,7 @@ int main()
 	}
 	std::cout << std::endl;
 
-	std::vector<Node<int>*> breadthfirst = tree.BreadthFirstSearch();
+	std::vector<Node<int>*> breadthfirst = tree.BreadthFirstTraversal();
 
 	for (auto i = breadthfirst.begin(); i < breadthfirst.end(); i++)
 	{

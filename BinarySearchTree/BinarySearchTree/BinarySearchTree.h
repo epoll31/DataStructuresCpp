@@ -20,10 +20,10 @@ public:
 	Node<T>* Find(T value);
 	bool Contains(T value);
 
-	std::vector<Node<T>*> DepthFirstSearchPreOrder();
-	std::vector<Node<T>*> DepthFirstSearchInOrder();
-	std::vector<Node<T>*> DepthFirstSearchPostOrder();
-	std::vector<Node<T>*> BreadthFirstSearch();
+	std::vector<Node<T>*> DepthFirstTraversalPreOrder();
+	std::vector<Node<T>*> DepthFirstTraversalInOrder();
+	std::vector<Node<T>*> DepthFirstTraversalPostOrder();
+	std::vector<Node<T>*> BreadthFirstTraversal();
 
 private:
 	void Remove(Node<T>* nodeToRemove);
