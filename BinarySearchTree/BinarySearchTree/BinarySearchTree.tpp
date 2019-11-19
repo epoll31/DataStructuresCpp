@@ -314,5 +314,27 @@ std::vector<Node<T>*> BinarySearchTree<T>::DepthFirstSearchPostOrder()
 template <typename T>
 std::vector<Node<T>*> BinarySearchTree<T>::BreadthFirstSearch()
 {
+	std::queue<Node<T>*> queue;
+	std::vector<Node<T>*> returnList;
 
+	queue.push(Head.get());
+
+	while (queue.size() > 0)
+	{
+		Node<T>* currentNode = queue.front();
+		queue.pop();
+
+		returnList.push_back(currentNode);
+
+		if (currentNode->Left != nullptr)
+		{
+			queue.push(currentNode->Left.get());
+		}
+		if (currentNode->Right != nullptr)
+		{
+			queue.push(currentNode->Right.get());
+		}
+	}
+
+	return returnList;
 }

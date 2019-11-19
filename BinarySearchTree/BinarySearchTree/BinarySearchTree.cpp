@@ -54,4 +54,11 @@ int main()
 	}
 	std::cout << std::endl;
 
+	std::vector<Node<int>*> breadthfirst = tree.BreadthFirstSearch();
+
+	for (auto i = breadthfirst.begin(); i < breadthfirst.end(); i++)
+	{
+		std::cout << (*i)->Value << " ";
+	}
+	std::cout << std::endl;
 }

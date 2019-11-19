@@ -2,7 +2,7 @@
 #include <iostream>
 #include <vector>
 #include <stack>
-#include <list>
+#include <queue>
 #include "Node.h"
 
 template <typename T>
