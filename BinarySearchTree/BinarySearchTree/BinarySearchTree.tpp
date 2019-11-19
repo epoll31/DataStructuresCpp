@@ -194,3 +194,125 @@ bool BinarySearchTree<T>::Contains(T value)
 
 	return false;
 }
+
+template <typename T>
+std::vector<Node<T>*> BinarySearchTree<T>::DepthFirstSearchPreOrder()
+{
+	std::stack<Node<T>*> stack;
+	std::vector<Node<T>*> returnList;
+
+	stack.push(Head.get());
+
+	while (stack.size() > 0)
+	{
+		Node<T>* currentNode = stack.top();
+		stack.pop();
+
+		returnList.push_back(currentNode);
+
+		if (currentNode->Right != nullptr)
+		{
+			stack.push(currentNode->Right.get());
+		}
+		if (currentNode->Left != nullptr)
+		{
+			stack.push(currentNode->Left.get());
+		}
+	}
+
+	return returnList;
+}
+
+template <typename T>
+std::vector<Node<T>*> BinarySearchTree<T>::DepthFirstSearchInOrder()
+{
+	auto Contains = [](std::vector<Node<T>*> & list, Node<T> * value)-> bool
+	{
+		for (auto item = list.begin(); item < list.end(); item++)
+		{
+			Node<T>* node = (*item);
+			if (node == value)
+			{
+				return true;
+			}
+		}
+		return false;
+	};
+
+	std::stack<Node<T>*> stack;
+	std::vector<Node<T>*> returnList;
+
+	stack.push(Head.get());
+
+	while (stack.size() > 0)
+	{
+		Node<T>* currentNode = stack.top();
+		stack.pop();
+
+		while (currentNode->Left != nullptr && !Contains(returnList, currentNode->Left.get()))
+		{
+			currentNode = currentNode->Left.get();
+		}
+
+		if (!Contains(returnList, currentNode))
+		{
+			returnList.push_back(currentNode);
+		}
+		if (!Contains(returnList, currentNode->Parent) && currentNode->Parent != nullptr)
+		{
+			stack.push(currentNode->Parent);
+		}
+		if (!Contains(returnList, currentNode->Right.get()) && currentNode->Right != nullptr)
+		{
+			stack.push(currentNode->Right.get());
+		}
+	}
+
+
+	return returnList;
+}
+
+template <typename T>
+std::vector<Node<T>*> BinarySearchTree<T>::DepthFirstSearchPostOrder()
+{
+	std::stack<Node<T>*> stack;
+	std::vector<Node<T>*> inputList;
+
+	stack.push(Head.get());
+
+	while (stack.size() > 0)
+	{
+		Node<T>* currentNode = stack.top();
+		stack.pop();
+
+		inputList.push_back(currentNode);
+
+		if (currentNode->Left != nullptr)
+		{
+			stack.push(currentNode->Left.get());
+		}
+		if (currentNode->Right != nullptr)
+		{
+			stack.push(currentNode->Right.get());
+		}
+	}
+
+	std::vector<Node<T>*> outputList;
+	for (auto item = inputList.end()-1; item >= inputList.begin(); item--)
+	{
+		outputList.push_back(*item);
+
+		if (item == inputList.begin())
+		{
+			break;
+		}
+	}
+
+	return outputList;
+}
+
+template <typename T>
+std::vector<Node<T>*> BinarySearchTree<T>::BreadthFirstSearch()
+{
+
+}

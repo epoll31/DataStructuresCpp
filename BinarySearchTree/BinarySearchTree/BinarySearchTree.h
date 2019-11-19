@@ -1,5 +1,8 @@
 #pragma once
 #include <iostream>
+#include <vector>
+#include <stack>
+#include <list>
 #include "Node.h"
 
 template <typename T>
@@ -16,6 +19,12 @@ public:
 	void Remove(T value);
 	Node<T>* Find(T value);
 	bool Contains(T value);
+
+	std::vector<Node<T>*> DepthFirstSearchPreOrder();
+	std::vector<Node<T>*> DepthFirstSearchInOrder();
+	std::vector<Node<T>*> DepthFirstSearchPostOrder();
+	std::vector<Node<T>*> BreadthFirstSearch();
+
 private:
 	void Remove(Node<T>* nodeToRemove);
 };
