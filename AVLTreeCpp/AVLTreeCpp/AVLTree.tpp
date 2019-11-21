@@ -150,9 +150,50 @@ void AVLTree<T>::Remove(Node<T>* nodeToRemove)
 }
 
 template<typename T>
-void AVLTree<T>::Balance(Node<T>* startNode)
+Node<T>* AVLTree<T>::Balance(Node<T>* currentNode)
 {
+	int currentBalance = currentNode->GetBalance();
+	if (currentBalance <= -2)
+	{
+		if (currentNode->Left != nullptr && currentNode->Left.get()->GetBalance() > 0)
+		{
+			Node<T>* newLeft = RotateLeft(currentNode->Left.get());
+			if (newLeft->IsLeftChild())
+			{
+				currentNode->Left = std::move(newLeft->Parent->Left);
+				currentNode->Left.get()->Parent = currentNode;
+			}
+			else
+			{
+				currentNode->Left = std::move(newLeft->Parent->Right);
+				currentNode->Left.get()->Parent = currentNode;
+			}
+		}
+		currentNode = RotateRight(currentNode);
+	}
+	else if (currentBalance >= 2)
+	{
+		if (currentNode->Right != nullptr && currentNode->Right.get()->GetBalance() < 0)
+		{
+			Node<T>* newRight = RotateRight(currentNode->Right.get());
+			if (newRight->IsLeftChild())
+			{
+				currentNode->Right = std::move(newRight->Parent->Left);
+				currentNode->Right.get()->Parent = currentNode;
+			}
+			else
+			{
+				currentNode->Right = std::move(newRight->Parent->Right);
+				currentNode->Right.get()->Parent = currentNode;
+			}
+		}
+		currentNode = RotateLeft(currentNode);
+	}
 
+	if (currentNode->Parent != nullptr)
+	{
+		return Balance(currentNode->Parent);
+	}
 }
 
 template <typename T>
@@ -349,6 +390,7 @@ template<typename T>
 Node<T>* AVLTree<T>::RotateRight(Node<T>* nodeToRotate)
 {
 	Node<T>* newHead = nodeToRotate->Left.get();
+	std::unique_ptr<Node<T>> newLeft = std::move(newHead->Right);
 
 	newHead->Parent = nodeToRotate->Parent;
 	if (nodeToRotate->Parent == nullptr)
@@ -371,6 +413,11 @@ Node<T>* AVLTree<T>::RotateRight(Node<T>* nodeToRotate)
 	}
 
 	newHead->Right.get()->Parent = newHead;
+	nodeToRotate->Left = std::move(newLeft);
+	if (nodeToRotate->Left != nullptr)
+	{
+		nodeToRotate->Left.get()->Parent = nodeToRotate;
+	}
 
 	return newHead;
 }
@@ -378,7 +425,10 @@ Node<T>* AVLTree<T>::RotateRight(Node<T>* nodeToRotate)
 template<typename T>
 Node<T>* AVLTree<T>::RotateLeft(Node<T>* nodeToRotate)
 {
+	//nodeToRotate->Right = std::move(newHead->Left);
+	
 	Node<T>* newHead = nodeToRotate->Right.get();
+	std::unique_ptr<Node<T>> newRight = std::move(newHead->Left);
 
 	newHead->Parent = nodeToRotate->Parent;
 	if (nodeToRotate->Parent == nullptr)
@@ -401,18 +451,11 @@ Node<T>* AVLTree<T>::RotateLeft(Node<T>* nodeToRotate)
 	}
 
 	newHead->Left.get()->Parent = newHead;
+	nodeToRotate->Right = std::move(newRight);
+	if (nodeToRotate->Right != nullptr)
+	{
+		nodeToRotate->Right.get()->Parent = nodeToRotate;
+	}
 
 	return newHead;
-}
-
-template<typename T>
-Node<T>* AVLTree<T>::DoubleRotateRight(Node<T>* nodeToRotate)
-{
-	return NULL;
-}
-
-template<typename T>
-Node<T>* AVLTree<T>::DoubleRotateLeft(Node<T>* nodeToRotate)
-{
-	return NULL;
 }

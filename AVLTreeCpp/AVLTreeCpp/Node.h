@@ -15,6 +15,7 @@ public:
 
 	bool IsLeftChild();
 	int GetHeight();
+	int GetBalance();
 };
 
 #include "Node.tpp"

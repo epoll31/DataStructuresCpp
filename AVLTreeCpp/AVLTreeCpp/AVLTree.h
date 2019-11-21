@@ -27,12 +27,10 @@ public:
 
 	Node<T>* RotateRight(Node<T>* nodeToRotate);
 	Node<T>* RotateLeft(Node<T>* nodeToRotate);
-	Node<T>* DoubleRotateRight(Node<T>* nodeToRotate);
-	Node<T>* DoubleRotateLeft(Node<T>* nodeToRotate);
 
 private:
 	void Remove(Node<T>* nodeToRemove);
-	void Balance(Node<T>* startNode);
+	Node<T>* Balance(Node<T>* startNode);
 };
 
 #include "AVLTree.tpp"

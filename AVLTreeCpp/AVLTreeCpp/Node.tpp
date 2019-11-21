@@ -42,3 +42,24 @@ int Node<T>::GetHeight()
 		return right + 1;
 	}
 }
+
+template<typename T>
+int Node<T>::GetBalance()
+{
+	if (Left == nullptr && Right == nullptr)
+	{
+		return 0;
+	}
+	else if (Left == nullptr && Right != nullptr)
+	{
+		return Right.get()->GetHeight();
+	}
+	else if (Left != nullptr && Right == nullptr)
+	{
+		return -Left.get()->GetHeight();
+	}
+	else
+	{
+		return Right.get()->GetHeight() - Left.get()->GetHeight();
+	}
+}
