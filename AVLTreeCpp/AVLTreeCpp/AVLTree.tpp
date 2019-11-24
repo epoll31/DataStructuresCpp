@@ -66,28 +66,35 @@ void AVLTree<T>::Add(T value)
 }
 
 template <typename T>
-void AVLTree<T>::Remove(T value)
+bool AVLTree<T>::Remove(T value)
 {
-	Remove(Find(value));
+	if (Contains(value))
+	{
+		Balance(Remove(Find(value)));
+		return true;
+	}
+	else
+	{
+		return false;
+	}
 }
 
 template <typename T>
-void AVLTree<T>::Remove(Node<T>* nodeToRemove)
+Node<T>* AVLTree<T>::Remove(Node<T>* nodeToRemove)
 {
 	Count--;
-	if (nodeToRemove->Count > 0)
-	{
-		return;
-	}
+	Node<T>* returnNode;
 
 	if (nodeToRemove->Left == nullptr && nodeToRemove->Right == nullptr)//no children
 	{
 		if (nodeToRemove->Parent == nullptr)
 		{
 			Head = nullptr;
+			returnNode = nullptr;
 		}
 		else
 		{
+			returnNode = nodeToRemove->Parent;
 			if (nodeToRemove->IsLeftChild())
 			{
 				nodeToRemove->Parent->Left.release();
@@ -96,14 +103,17 @@ void AVLTree<T>::Remove(Node<T>* nodeToRemove)
 			{
 				nodeToRemove->Parent->Right.release();
 			}
+			//returnNode = nodeToRemove->Parent;
 		}
 	}
 	else if (nodeToRemove->Left != nullptr && nodeToRemove->Right == nullptr)//left child
 	{
 		nodeToRemove->Left.get()->Parent = nodeToRemove->Parent;
+		returnNode = nodeToRemove->Parent;
 		if (nodeToRemove->Parent == nullptr)
 		{
 			Head = std::move(nodeToRemove->Left);
+			returnNode = Head.get();
 		}
 		else
 		{
@@ -115,14 +125,18 @@ void AVLTree<T>::Remove(Node<T>* nodeToRemove)
 			{
 				nodeToRemove->Parent->Right = std::move(nodeToRemove->Left);
 			}
+
+			//returnNode = nodeToRemove->Parent;
 		}
 	}
 	else if (nodeToRemove->Left == nullptr && nodeToRemove->Right != nullptr)//right child
 	{
 		nodeToRemove->Right.get()->Parent = nodeToRemove->Parent;
+		returnNode = nodeToRemove->Parent;
 		if (nodeToRemove->Parent == nullptr)
 		{
 			Head = std::move(nodeToRemove->Right);
+			returnNode = Head.get();
 		}
 		else
 		{
@@ -134,6 +148,7 @@ void AVLTree<T>::Remove(Node<T>* nodeToRemove)
 			{
 				nodeToRemove->Parent->Right = std::move(nodeToRemove->Right);
 			}
+			//returnNode = nodeToRemove->Parent;
 		}
 	}
 	else//both children
@@ -145,13 +160,23 @@ void AVLTree<T>::Remove(Node<T>* nodeToRemove)
 		}
 
 		nodeToRemove->Value = replacementNode->Value;
+		returnNode = replacementNode->Parent;
+		Count++;
 		Remove(replacementNode);
+		//return nodeToRemove;
 	}
+
+	return returnNode;
 }
 
 template<typename T>
-Node<T>* AVLTree<T>::Balance(Node<T>* currentNode)
+void AVLTree<T>::Balance(Node<T>* currentNode)
 {
+	if (currentNode == nullptr)
+	{
+		return;
+	}
+
 	int currentBalance = currentNode->GetBalance();
 	if (currentBalance <= -2)
 	{
@@ -192,7 +217,7 @@ Node<T>* AVLTree<T>::Balance(Node<T>* currentNode)
 
 	if (currentNode->Parent != nullptr)
 	{
-		return Balance(currentNode->Parent);
+		Balance(currentNode->Parent);
 	}
 }
 
@@ -225,13 +250,13 @@ bool AVLTree<T>::Contains(T value)
 	Node<T>* traversalNode = Head.get();
 	while (traversalNode != nullptr)
 	{
-		if (traversalNode->Value < value)
+		if (traversalNode->Value > value)
 		{
-			traversalNode = traversalNode->Left;
+			traversalNode = traversalNode->Left.get();
 		}
-		else if (traversalNode->Value > value)
+		else if (traversalNode->Value < value)
 		{
-			traversalNode = traversalNode->Right;
+			traversalNode = traversalNode->Right.get();
 		}
 		else
 		{
@@ -426,7 +451,7 @@ template<typename T>
 Node<T>* AVLTree<T>::RotateLeft(Node<T>* nodeToRotate)
 {
 	//nodeToRotate->Right = std::move(newHead->Left);
-	
+
 	Node<T>* newHead = nodeToRotate->Right.get();
 	std::unique_ptr<Node<T>> newRight = std::move(newHead->Left);
 

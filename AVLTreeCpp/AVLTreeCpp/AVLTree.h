@@ -16,7 +16,7 @@ public:
 	~AVLTree();
 
 	void Add(T value);
-	void Remove(T value);
+	bool Remove(T value);
 	Node<T>* Find(T value);
 	bool Contains(T value);
 
@@ -29,8 +29,8 @@ public:
 	Node<T>* RotateLeft(Node<T>* nodeToRotate);
 
 private:
-	void Remove(Node<T>* nodeToRemove);
-	Node<T>* Balance(Node<T>* startNode);
+	Node<T>* Remove(Node<T>* nodeToRemove);
+	void Balance(Node<T>* startNode);
 };
 
 #include "AVLTree.tpp"
