@@ -46,4 +46,27 @@ namespace SortingAlgorithms
 
 		return data;
 	}
+
+	template <typename T>
+	std::vector<T> InsertionSort(std::vector<T> data)
+	{
+		for (auto i = data.begin() + 1; i < data.end(); i++)
+		{
+			for (auto j = i; j > data.begin(); j--)
+			{
+				if (*j < *(j-1)) {
+
+					T temp = *(j - 1);
+					*(j - 1) = *j;
+					*j = temp;
+				}
+				else
+				{
+					break;
+				}
+			}
+		}
+
+		return data;
+	}
 }

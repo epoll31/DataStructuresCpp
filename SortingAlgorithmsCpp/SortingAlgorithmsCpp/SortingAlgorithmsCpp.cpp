@@ -9,7 +9,7 @@ int main()
 		before.push_back(rand() % 100);
 	}
 
-	std::vector<int> after = SortingAlgorithms::SelectionSort(before);
+	std::vector<int> after = SortingAlgorithms::InsertionSort(before);
 
 	std::cout << "before: ";
 	for (auto i = before.begin(); i < before.end(); i++)
