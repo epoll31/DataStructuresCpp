@@ -24,4 +24,26 @@ namespace SortingAlgorithms
 
 		return data;
 	}
+
+	template <typename T>
+	std::vector<T> SelectionSort(std::vector<T> data)
+	{
+		for (auto i = data.begin(); i < data.end() - 1; i++)
+		{
+			auto min = i;
+			for (auto j = i + 1; j < data.end(); j++)
+			{
+				if (*j < *min)
+				{
+					min = j;
+				}
+			}
+
+			T temp = *i;
+			*i = *min;
+			*min = temp;
+		}
+
+		return data;
+	}
 }

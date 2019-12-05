@@ -4,14 +4,12 @@
 int main()
 {
 	std::vector<int> before;
-	before.push_back(6);
-	before.push_back(5);
-	before.push_back(4);
-	before.push_back(3);
-	before.push_back(2);
-	before.push_back(1);
+	for (int i = 0; i < 100; i++)
+	{
+		before.push_back(rand() % 100);
+	}
 
-	std::vector<int> after = SortingAlgorithms::BubbleSort(before);
+	std::vector<int> after = SortingAlgorithms::SelectionSort(before);
 
 	std::cout << "before: ";
 	for (auto i = before.begin(); i < before.end(); i++)
@@ -19,7 +17,7 @@ int main()
 		std::cout << *i << " ";
 	}
 
-	std::cout << std::endl << "after: ";
+	std::cout << std::endl << std::endl << "after: ";
 	for (auto i = after.begin(); i < after.end(); i++)
 	{
 		std::cout << *i << " ";
