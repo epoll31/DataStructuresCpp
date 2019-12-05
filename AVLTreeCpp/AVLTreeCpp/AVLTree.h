@@ -25,12 +25,12 @@ public:
 	std::vector<Node<T>*> DepthFirstTraversalPostOrder();
 	std::vector<Node<T>*> BreadthFirstTraversal();
 
-	Node<T>* RotateRight(Node<T>* nodeToRotate);
-	Node<T>* RotateLeft(Node<T>* nodeToRotate);
-
 private:
 	Node<T>* Remove(Node<T>* nodeToRemove);
 	void Balance(Node<T>* startNode);
+
+	Node<T>* RotateRight(Node<T>* nodeToRotate);
+	Node<T>* RotateLeft(Node<T>* nodeToRotate);
 };
 
 #include "AVLTree.tpp"
